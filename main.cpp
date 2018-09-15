@@ -1,6 +1,7 @@
 #include <iostream>
+#include "MServer/Server.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Server* server = Server::init(40);
     return 0;
 }

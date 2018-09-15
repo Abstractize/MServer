@@ -2,8 +2,9 @@
 // Created by gabriel on 08/09/18.
 //
 
-#ifndef UNTITLED1_SERVERTHREAD_H
-#define UNTITLED1_SERVERTHREAD_H
+#ifndef MSERVER_SERVERTHREAD_H
+#define MSERVER_SERVERTHREAD_H
+
 
 
 class ServerThread {
@@ -11,4 +12,4 @@ class ServerThread {
 };
 
 
-#endif //UNTITLED1_SERVERTHREAD_H
+#endif //MSERVER_SERVERTHREAD_H

@@ -37,4 +37,4 @@ public:
 };
 
 
-#endif //UNTITLED1_DOUBLELIST_H
+#endif //MSERVER_DOUBLELIST_H
