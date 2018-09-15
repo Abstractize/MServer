@@ -2,6 +2,6 @@
 #include "MServer/Server.h"
 
 int main() {
-    Server* server = Server::init(40);
+    Server* server = Server::init();
     return 0;
 }
