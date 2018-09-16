@@ -1,6 +1,7 @@
 //
 // Created by gabriel on 08/09/18.
 //
+
 #include "Server.h"
 #include <unistd.h>
 #include <stdio.h>
@@ -8,9 +9,12 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <iostream>
 #include "ServerThread.h"
 #include "../AbstractDataType/DoubleList.h"
 #define PORT 8080
+
+
 Server* Server::instance = NULL;
 
 Server* Server::init() {
@@ -20,7 +24,7 @@ Server* Server::init() {
     return instance;
 }
 Server::Server(){
-
+    std::cout << "Loading server..." << std::endl;
     // Creating socket file descriptor
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {
@@ -48,6 +52,7 @@ Server::Server(){
     }
 
     while(true){
+        std::cout << "Listening..." << std::endl;
         serverlisten();
     }
 
@@ -58,6 +63,7 @@ int Server ::serverlisten() {
         perror("listen");
         exit(EXIT_FAILURE);
     }else{
+        std::cout << "Conecction found..." << std::endl;
         acceptclient();
     }
 }
@@ -69,6 +75,7 @@ int Server::acceptclient() {//Cambiar
         perror("accept");
         exit(EXIT_FAILURE);
     }
+    std::cout << "Sending message..." << std::endl;
     valread = read( new_socket , buffer, 1024);
     printf("%s\n",buffer );
     send(new_socket , hello , strlen(hello) , 0 );
