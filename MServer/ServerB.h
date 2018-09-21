@@ -16,9 +16,11 @@
 #include <netinet/in.h>
 #include <string.h>
 #include "json.hpp"
+#include "ServerThread.h"
+#include "../AbstractDataType/DoubleList.h"
+
 #define PORT 8080
 
-using json = nlohmann::json;
 
 class ServerB {
 public:
@@ -28,15 +30,14 @@ public:
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
-    char *hello = "Hello from server";
+    DoubleList<ServerThread>* pool = new DoubleList<ServerThread>();
+
+    //char *hello = "Hello from server";
 
     int acceptclient() {//Cambiar
-        json j;
-        valread = read(new_socket, buffer, 1024);
-        printf("%s\n", buffer);
-        send(new_socket, hello, strlen(hello), 0);
-        printf("Hello message sent\n");
-        return 0;
+        ServerThread* newThread = new ServerThread();
+        pool->append(*newThread);
+
     }
 
     void serverListen() {
