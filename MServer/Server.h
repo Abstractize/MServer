@@ -24,6 +24,7 @@ private:
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
+    char *hello = "Hello from server";
     DoubleList<ServerThread> *Pool = new DoubleList<ServerThread>;
 
     Server();

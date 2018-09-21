@@ -10,9 +10,10 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <iostream>
-#include "ServerThread.h"
-#include "../AbstractDataType/DoubleList.h"
-#define PORT 8080
+#include "json.hpp"
+//#include "ServerThread.h"
+//#include "../AbstractDataType/DoubleList.h"
+using json = nlohmann::json;
 
 
 Server* Server::instance = NULL;
@@ -63,21 +64,28 @@ int Server ::serverlisten() {
         perror("listen");
         exit(EXIT_FAILURE);
     }else{
-        std::cout << "Conecction found..." << std::endl;
+        std::cout << "Founding Connection..." << std::endl;
         acceptclient();
     }
 }
 int Server::acceptclient() {//Cambiar
-    char *hello = "Hello from server";
+    json j;
     if ((new_socket = accept(server_fd, (struct sockaddr *)&address,
                              (socklen_t*)&addrlen)<0))
     {
         perror("accept");
         exit(EXIT_FAILURE);
     }
-    std::cout << "Sending message..." << std::endl;
-    valread = read( new_socket , buffer, 1024);
+    std::cout << "Reading message..." << std::endl;
+    try{
+        valread = read( new_socket, buffer, 1024);
+    }catch(int e) {
+
+    }
+
+
     printf("%s\n",buffer );
+    std::cout << "Sending message..." << std::endl;
     send(new_socket , hello , strlen(hello) , 0 );
     printf("Hello message sent\n");
     return 0;

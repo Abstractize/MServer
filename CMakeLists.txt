@@ -9,4 +9,4 @@ add_executable(MServer main.cpp
         MServer/ServerThread.cpp
         MServer/ServerThread.h
         AbstractDataType/DoubleList.cpp
-        AbstractDataType/DoubleList.h)
+        AbstractDataType/DoubleList.h MServer/ServerB.cpp MServer/ServerB.h)
