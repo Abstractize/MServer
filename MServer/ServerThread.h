@@ -18,7 +18,8 @@ class ServerThread {
 private:
     int new_socket, valread;
     char buffer[1024] = {0};
-    json j;
+    json jreturn;
+    json jsend;
     string ip;
     int space;
 
@@ -28,7 +29,7 @@ public:
     ServerThread(int newsocket){
         new_socket = newsocket;
         valread = read( newsocket,buffer, 1024);
-        j = json::parse(buffer);
+        jreturn = json::parse(buffer);
         printf("%s\n", buffer);
         //Meter varas del json, que se necesitan
 
@@ -39,7 +40,7 @@ public:
             try {
                 valread = read(new_socket, buffer, 1024);
                 printf("%s\n", buffer);
-                send(new_socket, j.dump().c_str(), strlen(j.dump().c_str()), 0);
+                send(new_socket, jsend.dump().c_str(), strlen(jsend.dump().c_str()), 0);
                 printf("Hello message sent\n");
 
             }catch(exception& e){
