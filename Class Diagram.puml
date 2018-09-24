@@ -1,0 +1,62 @@
+@startuml
+
+ServerB <-- DoubleList
+ServerB <-- ServerThread
+
+class DoubleList{
+    int lenght
+    node *head
+    node *tail
+    bool isEmpty()
+    bool search(T reference)
+    void append(T reference)
+    void del(T reference)
+}
+class ServerB{
+    ServerB* instance
+    int server_fd
+    int new_socket
+    int valread
+    struct sockaddr_in address
+    int
+    int addrlen
+    char buffer[1024]
+    DoubleList<ServerThread>* pool
+    void acceptclient()
+    void serverListen()
+    ServerB()
+    void serverinit()
+}
+class ServerThread{
+    int new_socket
+    int valread
+    char buffer[1024]
+    json jreturn
+    json jsend
+    string ip
+    int space
+    ServerThread()
+}
+class Cliente{
+
+struct sockaddr_in address
+int sock
+int valread
+struct sockaddr_in serv_addr
+char *hello
+char buffer[1024]
+
+}
+class MPointer{
+
+T* element
+int id
+
+static MPointer<T> New()
+int getId()
+void setId(int x)
+T& operator*()
+T& operator&()
+T& operator=(const T& other)
+    }
+@enduml
