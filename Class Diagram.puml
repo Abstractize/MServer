@@ -58,5 +58,13 @@ void setId(int x)
 T& operator*()
 T& operator&()
 T& operator=(const T& other)
-    }
+}
+class MPointerGC {
+    DoubleList addresses
+    int giveId()
+    int removeUnused()
+    int testQS()
+    int testBS()
+    int testIS()
+}
 @enduml

@@ -23,8 +23,8 @@
 
 
 class ServerB {
-public:
-    ServerB* instance = nullptr;
+private:
+    static ServerB* instance;
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
@@ -35,8 +35,8 @@ public:
     //char *hello = "Hello from server";
 
     int acceptclient() {//Cambiar
-        ServerThread* newThread = new ServerThread();
-        pool->append(*newThread);
+        ServerThread* newThread = new ServerThread(new_socket);
+        pool->append(newThread);
 
     }
 
@@ -57,9 +57,8 @@ public:
         }
         acceptclient();
     }
-
     ServerB() {
-        if (instance == nullptr) {
+        //if (instance == nullptr) {
             // Creating socket file descriptor
             std::cout << "Loading server..." << std::endl;
             if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
@@ -78,8 +77,18 @@ public:
             address.sin_port = htons(PORT);
 
             serverListen();
-        }
+        //}
     }
+public:
+    static ServerB* init(){
+
+        if (instance == 0){
+            instance = new ServerB();
+        }
+        return instance;
+    }
+
+
 };
 
 

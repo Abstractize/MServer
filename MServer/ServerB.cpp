@@ -3,3 +3,4 @@
 //
 
 #include "ServerB.h"
+ServerB* ServerB::instance = 0;

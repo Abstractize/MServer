@@ -1,8 +1,7 @@
 #include <iostream>
-#include "MServer/Server.h"
 #include "MServer/ServerB.h"
 
 int main() {
-    ServerB* server = new ServerB();
+    ServerB* server = ServerB::init();
     return 0;
 }

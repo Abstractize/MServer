@@ -30,8 +30,8 @@ bool DoubleList<T>::search(T Reference) {
 
 };
 template <class T>
-void DoubleList<T>::append(T reference) {
-    if (head == NULL){
+void DoubleList<T>::append(T *reference) {
+    if (isEmpty()){
         head = new node(reference);
         tail = head();
         lenght++;

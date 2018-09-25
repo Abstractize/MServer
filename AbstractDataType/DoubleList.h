@@ -4,6 +4,9 @@
 
 #ifndef MSERVER_DOUBLELIST_H
 #define MSERVER_DOUBLELIST_H
+
+#include "../MServer/ServerThread.h"
+
 #define NULL 0
 
 template <class T>
@@ -31,7 +34,7 @@ public:
 
     bool isEmpty();
     bool search(T reference);
-    void append(T reference);
+    void append(T *reference);
     void del(T reference);
 
 };
