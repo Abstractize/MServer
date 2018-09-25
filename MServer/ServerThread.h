@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <cstdio>
 #include "json.hpp"
+#include "../AbstractDataType/List.h"
 #include <sys/socket.h>
 
 using namespace std;
@@ -22,6 +23,7 @@ private:
     json jsend;
     string ip;
     int space;
+    List *MapArray;
 
 
     int& MatrixGen(int fields);
@@ -31,7 +33,9 @@ public:
         valread = read( newsocket,buffer, 1024);
         jreturn = json::parse(buffer);
         printf("%s\n", buffer);
-        //Meter varas del json, que se necesitan
+        ip = jreturn["IP"];
+        MapArray = new List(jreturn["Malloc"]);
+        //Devolver datos del Json
 
         runThread();
     }

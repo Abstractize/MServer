@@ -7,7 +7,21 @@
 
 
 class List {
-
+    typedef struct node{
+        int value = 0;
+        struct node *next = nullptr;
+    };
+    int lenght;
+    node *head;
+    List(int value){
+        lenght = value;
+        head = new node();
+        node *tmp = head;
+        for (int i= value-1; i >= 0; i--){
+            tmp->next = new node();
+            tmp = tmp->next;
+        }
+    }
 };
 
 
