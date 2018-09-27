@@ -22,20 +22,30 @@ private:
     json jreturn;
     json jsend;
     string ip;
+    int buffer_position = 0;
     int space;
-    List *MapArray;
+    int * bufferSpace; //Int por el momento, debe aceptar cualquier tipo
+    //List *MapArray; //No se va a usar
 
+    //int& MatrixGen(int fields);
 
-    int& MatrixGen(int fields);
 public:
     ServerThread(int newsocket){
         new_socket = newsocket;
         valread = read( newsocket,buffer, 1024);
         jreturn = json::parse(buffer);
-        printf("%s\n", buffer);
+        printf("%s\n", jreturn.dump().c_str());
         ip = jreturn["IP"];
-        MapArray = new List(jreturn["Malloc"]);
-        //Devolver datos del Json
+        //MapArray = new List(
+                space = jreturn["Malloc"];
+                        //);
+        bufferSpace = (int*) malloc(space+1);
+        //libera el Json
+        jreturn.clear();
+        //Devolver datos en Json
+        jsend["info"] = "Hola, me llamo Roberto";
+        send(newsocket,jsend.dump().c_str(),strlen(jsend.dump().c_str()),0)
+        jsend.clear();
 
         runThread();
     }
@@ -44,10 +54,33 @@ public:
             try {
                 valread = read(new_socket, buffer, 1024);
                 printf("%s\n", buffer);
-                send(new_socket, jsend.dump().c_str(), strlen(jsend.dump().c_str()), 0);
-                printf("Hello message sent\n");
+                jreturn = jreturn = json::parse(buffer);
+                //Sacar métodos que se solicitan.
+                if(jreturn["type"] = "need"){
+                    jsend["Position"] = buffer[jreturn["value"]];
+                    jreturn.clear();
+                    send(new_socket, jsend.dump().c_str(), strlen(jsend.dump().c_str()), 0);
+                    printf("Json sent\n");
+                    jsend.clear();
+                }else{
+                    string algo = jreturn["type"];//Corregir
+                    int value = jreturn["value"];
+                    jreturn.clear();
+                    //Meter en el bufferSpace
+                    bufferSpace[buffer_position] = value;
+                    //Mandar posición
+                    jsend["Position"] = buffer_position;
+                    buffer_position++;
+
+                    send(new_socket, jsend.dump().c_str(), strlen(jsend.dump().c_str()), 0);
+                    printf("Json sent\n");
+                    jsend.clear();
+                }
+
 
             }catch(exception& e){
+                free(bufferSpace);
+                //Liberar de la lista/array
                 break;
             }
         }

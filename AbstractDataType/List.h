@@ -7,12 +7,14 @@
 
 
 class List {
+private:
     typedef struct node{
         int value = 0;
         struct node *next = nullptr;
     };
     int lenght;
     node *head;
+public:
     List(int value){
         lenght = value;
         head = new node();
