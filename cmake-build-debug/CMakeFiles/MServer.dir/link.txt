@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/MServer.dir/main.cpp.o CMakeFiles/MServer.dir/MServer/ServerThread.cpp.o CMakeFiles/MServer.dir/AbstractDataType/DoubleList.cpp.o CMakeFiles/MServer.dir/MServer/ServerB.cpp.o CMakeFiles/MServer.dir/AbstractDataType/List.cpp.o  -o MServer 
