@@ -11,6 +11,7 @@
 #include "json.hpp"
 #include "../AbstractDataType/List.h"
 #include <sys/socket.h>
+#include <iostream>
 
 using namespace std;
 using json = nlohmann::json;
@@ -19,6 +20,7 @@ class ServerThread {
 private:
     int new_socket, valread;
     char buffer[1024] = {0};
+    char buffer2[1024] = {0};
     json jreturn;
     json jsend;
     string ip;
@@ -44,26 +46,31 @@ public:
         jreturn.clear();
         //Devolver datos en Json
         jsend["info"] = "Hola, me llamo Roberto";
-        send(newsocket,jsend.dump().c_str(),strlen(jsend.dump().c_str()),0)
+        send(newsocket,jsend.dump().c_str(),strlen(jsend.dump().c_str()),0);
         jsend.clear();
-
+        std::cout<<space<<std::endl;
         runThread();
     }
     void runThread() {
         while (true){
             try {
-                valread = read(new_socket, buffer, 1024);
-                printf("%s\n", buffer);
-                jreturn = jreturn = json::parse(buffer);
+
+                memset(buffer2,0,sizeof(buffer2));
+                valread = read(new_socket, buffer2, 1024);
+                printf("%s\n", buffer2);
+                jreturn =  json::parse(buffer2);
                 //Sacar métodos que se solicitan.
-                if(jreturn["type"] = "need"){
-                    jsend["Position"] = buffer[jreturn["value"]];
+                if(jreturn["type"] == true){//Pide valor
+                    int newpos = jreturn["value"];
+                    jsend["Position"] = bufferSpace[newpos];
                     jreturn.clear();
+
                     send(new_socket, jsend.dump().c_str(), strlen(jsend.dump().c_str()), 0);
                     printf("Json sent\n");
+                    std::cout<<jsend.dump()<<std::endl;
                     jsend.clear();
-                }else{
-                    string algo = jreturn["type"];//Corregir
+                }else{//Recibe valor
+                    bool algo = jreturn["type"];//Corregir
                     int value = jreturn["value"];
                     jreturn.clear();
                     //Meter en el bufferSpace
@@ -73,6 +80,7 @@ public:
                     buffer_position++;
 
                     send(new_socket, jsend.dump().c_str(), strlen(jsend.dump().c_str()), 0);
+                    //std::cout<<jsend.dump()<<std::endl;
                     printf("Json sent\n");
                     jsend.clear();
                 }
